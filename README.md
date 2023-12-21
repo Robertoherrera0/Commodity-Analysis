@@ -1,42 +1,38 @@
+# Commodity Data Analysis
 
-# Commodity Data Analysis Tool
+## Overview
 
-## Description
-This web application provides an interactive platform to analyze and predict commodity market trends. It leverages Python for data fetching and R for data visualization, offering users an in-depth look at commodities market data.
+The Commodity Data Analysis project is a Python-based tool for retrieving, formatting, and exporting historical commodity data for analysis. This tool utilizes Yahoo Finance's API to fetch historical data with 1-minute granularity for a specified commodity ETF (Exchange-Traded Fund). The retrieved data is then formatted and saved to a CSV file, which can be used for further analysis, including data visualization, statistical analysis, and more.
 
 ## Features
-- Allows users to select a commodity for analysis.
-- Displays visual representation of the commodity's market performance.
-- Offers predictive trends based on recent market data.
 
-## Technologies
-- Python for backend operations and data fetching.
-- R for generating interactive time-series plots.
-- Flask as the web framework.
-- Docker for containerization and easy deployment.
+- **Historical Data Retrieval**: Retrieve historical commodity data for the past month with 1-minute granularity.
+- **Data Formatting**: Format the retrieved data to simplify the DateTime format and select relevant columns.
+- **CSV Export**: Save the formatted data to a CSV file for use in external analysis tools.
 
-## How It Works
-The application consists of two main parts:
-1. **Data Fetching**: Implemented in Python, this part fetches commodity data based on user input using a RESTful API.
-2. **Data Visualization**: Using R, the application processes the data, analyze it and creates an interactive plot.
+## Prerequisites
 
-When a user selects a commodity, the Python script fetches the data and the R script generates a plot which is then displayed on the web page.
+Before using this tool, ensure that you have the following dependencies installed:
 
-## Docker and Deployment
-The application is containerized using Docker, which ensures that it can be easily deployed on any system without worrying about dependencies.
+- Python (3.6+)
+- Pandas
+- yfinance
 
-### Dockerfile
-The Dockerfile contains all the necessary instructions to build the application's Docker image. It sets up the environment, installs Python and R dependencies, and specifies how the application should be run.
+You can install the required Python libraries using `pip`:
 
-### Running the Application
-To run the application:
-1. Build the Docker image: `docker build -t commodity-analysis .`
-2. Run the Docker container: `docker run -p 5000:5000 commodity-analysis`
+bash
+pip install pandas yfinance
 
-The application will be accessible on `http://localhost:5000`.
 
-## Hosting on Google Cloud
-This application is ready to be hosted on Google Cloud. By using services like Google Cloud Run or Kubernetes Engine, the Docker container can be deployed to the cloud, making the application accessible online.
+Run the script
+python app.py
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+## CSV file format
+The saved CSV file contains the following columns:
+
+Opening Price: The opening price of the commodity within the specified time interval.
+Highest Price: The highest price of the commodity during the specified time interval.
+Lowest Price: The lowest price of the commodity during the specified time interval.
+Closing Price: The closing price of the commodity within the specified time interval.
+Trading Volume: The trading volume of the commodity during the specified time interval.
+

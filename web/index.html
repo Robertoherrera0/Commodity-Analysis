@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commodity Data Analysis</title>
+    <link rel="stylesheet" href="/web/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><span class="highlight">Commodity</span> Analysis Tool</h1>
+        </div>
+    </header>
+
+    <section id="showcase">
+        <div class="container">
+            <h1>Analyze and Predict Commodity Market Trends</h1>
+            <p>Access in-depth analysis and future trend prediction for key commodities.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <article id="main-col">
+            <h1 class="page-title">About the Tool</h1>
+            <p>
+                This tool allows users to select a commodity and receive a detailed analysis of its market performance. 
+                The analysis includes visual data representation and predictive trends based on recent market data.
+            </p>
+            <p>Select a commodity from the list below to begin your analysis.</p>
+        </article>
+
+        <aside id="sidebar">
+            <form method="post">
+                <label for="commodity">Choose a commodity:</label>
+                <select id="commodity" name="ticker">
+                    <option value="GLD">Gold</option>
+                    <option value="SLV">Silver</option>
+                </select>
+                <button type="submit" id="run-analysis-button">Run Analysis</button>
+            </form>
+        </aside>
+    </div>
+
+    <!-- A hidden div to hold the plot generated value -->
+    <div id="plotGenerated" style="display: none;">{{ plot }}</div>
+    
+    <!-- Plot iframe -->
+    <iframe src="/web/plot.html" id="plotFrame" width="1200" height="400" style="display: none;"></iframe>
+    
+    <script type="text/javascript">
+        // This script will run when the HTML document is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the value from the hidden div
+            var plot = document.getElementById('plotGenerated').innerText === 'True';
+            
+            // Get the iframe element
+            var plotFrame = document.getElementById('plotFrame');
+            
+            // Show or hide the iframe based on the plotGenerated value
+            plotFrame.style.display = plot ? 'block' : 'none';
+        });
+    </script>
+
+    <footer>
+        <p>Commodity Analysis Tool &copy; 2023</p>
+    </footer>
+    <script>
+        document.getElementById("run-analysis-button").addEventListener("click", function() {
+            // Show the hidden iframe and load plot.html
+            var plotFrame = document.getElementById("plotFrame");
+            plotFrame.style.display = "block";
+        });
+    </script>
+</body>
+</html>
