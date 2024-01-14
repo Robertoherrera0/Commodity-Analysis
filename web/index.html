@@ -5,73 +5,154 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commodity Data Analysis</title>
-    <link rel="stylesheet" href="/web/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <header>
-        <div class="container">
-            <h1><span class="highlight">Commodity</span> Analysis Tool</h1>
-        </div>
-    </header>
-
-    <section id="showcase">
-        <div class="container">
-            <h1>Analyze and Predict Commodity Market Trends</h1>
-            <p>Access in-depth analysis and future trend prediction for key commodities.</p>
-        </div>
-    </section>
-
-    <div class="container">
-        <article id="main-col">
-            <h1 class="page-title">About the Tool</h1>
-            <p>
-                This tool allows users to select a commodity and receive a detailed analysis of its market performance. 
-                The analysis includes visual data representation and predictive trends based on recent market data.
-            </p>
-            <p>Select a commodity from the list below to begin your analysis.</p>
-        </article>
-
-        <aside id="sidebar">
-            <form method="post">
-                <label for="commodity">Choose a commodity:</label>
-                <select id="commodity" name="ticker">
-                    <option value="GLD">Gold</option>
-                    <option value="SLV">Silver</option>
-                </select>
-                <button type="submit" id="run-analysis-button">Run Analysis</button>
-            </form>
-        </aside>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Header -->
+    <header class="bg-gray-100 border-b border-gray-200">
+    <div class="container mx-auto text-center py-6">
+        <h1 class="text-5xl font-semibold text-gray-800">Commodity Analysis Tool</h1>
+        <p class="text-lg text-gray-600 mt-2">Empowering Informed Financial Decisions</p>
     </div>
+</header>
 
-    <!-- A hidden div to hold the plot generated value -->
-    <div id="plotGenerated" style="display: none;">{{ plot }}</div>
     
-    <!-- Plot iframe -->
-    <iframe src="/web/plot.html" id="plotFrame" width="1200" height="400" style="display: none;"></iframe>
-    
-    <script type="text/javascript">
-        // This script will run when the HTML document is fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get the value from the hidden div
-            var plot = document.getElementById('plotGenerated').innerText === 'True';
-            
-            // Get the iframe element
-            var plotFrame = document.getElementById('plotFrame');
-            
-            // Show or hide the iframe based on the plotGenerated value
-            plotFrame.style.display = plot ? 'block' : 'none';
-        });
-    </script>
 
-    <footer>
-        <p>Commodity Analysis Tool &copy; 2023</p>
-    </footer>
-    <script>
-        document.getElementById("run-analysis-button").addEventListener("click", function() {
-            // Show the hidden iframe and load plot.html
-            var plotFrame = document.getElementById("plotFrame");
-            plotFrame.style.display = "block";
-        });
-    </script>
+    <!-- Main Content -->
+    <main class="container mx-auto py-10 px-4">
+        <section id="description" class="mb-10 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Analyze and Predict Market Trends</h2>
+            <p class="text-lg text-gray-700">In-depth analysis and prediction for commodities, providing you with actionable insights.</p>
+        </section>
+
+        <section id="form-section" class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8 mb-12">
+            <form method="post" class="space-y-6">
+                <div>
+                    <label for="commodity" class="block text-lg font-medium text-gray-700 mb-2">Choose a Commodity:</label>
+                    <select id="commoditiesDropdown" name="selectedCommodity" class="w-full border border-gray-300 rounded-lg p-3 text-lg text-gray-700 focus:ring-blue-500 focus:border-blue-500">
+                        {% for commodity in commodities %}
+                            <option value="{{ commodity[1] }}">{{ commodity[0] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" id="run-analysis-button" class="w-full bg-gray-700 hover:bg-gray-800 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 ease-in-out">Run Analysis</button>
+            </form>
+        </section>
+
+        <!-- Loading Container -->
+        <div id="loadingContainer" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <img src="/web/loading.gif" alt="Loading..." class="mx-auto h-20" />
+                <p class="text-center text-lg text-gray-800 mt-4">Analyzing data...</p>
+            </div>
+        </div>
+
+        <!-- Widget Previews and Modals -->
+        <!-- ... (Rest of your widget previews and modals code) ... -->
+
+        <section class="container mx-auto p-8">
+            
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-semibold text-gray-900 mb-4">Our Analysis Tools</h2>
+                <p class="text-lg text-gray-600">We provide comprehensive market analysis tools to help you make informed decisions. Each tool offers a unique perspective on commodity trends and market dynamics. Click on any of the options below to explore in-depth analysis.</p>
+            </div>
+                    <!-- previews --> 
+                    <div class="max-w-4xl mx-auto">
+                    <div class="mt-6 grid grid-cols-1 gap-4"> 
+                    <!-- ARIMA Preview -->
+                    <div id="arimaPreview" class="rounded-md bg-white p-4 ring-1 ring-gray-300 shadow-sm hover:bg-gray-100 hover:shadow-lg cursor-pointer">
+                        <h3 class="text-lg font-semibold text-gray-900">ARIMA Analysis</h3>
+                        <p class="text-gray-500">Time series forecasting using the ARIMA model.</p>
+                    </div>
+
+                    <!-- Candlestick Preview -->
+                    <div id="plotPreview" class="rounded-md bg-white p-4 ring-1 ring-gray-300 shadow-sm hover:bg-gray-100 hover:shadow-lg cursor-pointer">
+                        <h3 class="text-lg font-semibold text-gray-900">Price Fluctuations</h3>
+                        <p class="text-gray-500">Explore market trends with our detailed candlestick chart, capturing the daily price movements of your chosen commodity.
+        
+                            Each candlestick details open, high, low, and close prices over time, providing a comprehensive view of market sentiment
+                            
+                            
+                            Adjust the time frame with the range selector to examine periods of interest</p>
+                    </div> 
+
+                    <!-- Barchart Preview -->
+                    <div id="barchartPreview" class="rounded-md bg-white p-4 ring-1 ring-gray-300 shadow-sm hover:bg-gray-100 hover:shadow-lg cursor-pointer">
+                        <h3 class="text-lg font-semibold text-gray-900">Trading Activity</h3>
+                        <p class="text-gray-500">Explore market dynamics with our interactive bar chart, which showcases the trading volume for your chosen commodity.
+        
+                            Each bar represents the volume for a specific date, taller bars means greater trading activity.
+                            
+                            Adjust the time frame with the range selector to examine periods of interest.</p>
+                    </div>
+
+                    <!-- Straw Preview -->
+                    <div id="strawPreview" class="rounded-md bg-white p-4 ring-1 ring-gray-300 shadow-sm hover:bg-gray-100 hover:shadow-lg cursor-pointer">
+                        <h3 class="text-lg font-semibold text-gray-900">Price Trends</h3>
+                        <p class="text-gray-500">Explore how trading volumes and average prices interact. This analysis helps investors understand how volume-weighted average price(VWAP) compares with the simple moving average(SMA),offering valuable clues about underlying market momentum and potential trend shifts, uncovering key insights into market behaviour.
+        
+                            VWMA: Reflects price trends influenced by trading volumes, highlighting the impact of transaction activity on price movements.
+                            
+                            SMA: Provides a consistent average, smoothing out price fluctuations to reveal overall market direction.</p>
+                    </div>
+                    </div>
+                </div>
+
+         
+                    <!-- modals -->
+                    <!-- ARIMA Preview -->
+                    <div id="arimaModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center p-4">
+                        <div class="bg-white rounded-lg shadow-lg p-4 max-w-6xl w-full">
+                            <h3 class="text-xl font-semibold mb-2">ARIMA Analysis</h3>
+                            <p class="sr-only">In-depth analysis and forecasting using the ARIMA model.</p>
+                            <iframe src="/web/arima.html" class="w-full h-64"></iframe>
+                        </div>
+                     </div> 
+                    <!-- Candlestick Modal -->
+                     <div id="plotModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center p-4">
+                        <div class="bg-white rounded-lg shadow-lg p-4 max-w-4xl w-full">
+                            <h3 class="text-xl font-semibold mb-2">Candlestick Analysis</h3>
+                            <p class="mb-4">A green candlestick with a large body indicates strong buying pressure, suggesting a bullish market for the day. Conversely, a red candlestick with a large body points to significant selling pressure, hinting at a bearish sentiment.
+                                Small bodies with long wicks suggest indecision
+                                
+                                The mean line provides a benchmark, smoothing out daily fluctuations to show you the broader price trend</p>
+                            <iframe src="/web/plot.html" class="w-full h-64"></iframe>
+                        </div>
+                    </div> 
+                    <!-- Barchart Modal -->
+                    <div id="barchartModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center p-4">
+                        <div class="bg-white rounded-lg shadow-lg p-4 max-w-4xl w-full">
+                            <h3 class="text-xl font-semibold mb-2">Barchart</h3>
+                                <p class="mb-4">High volume may suggest strong market agreement on price levels, whereas low volume can imply uncertainty or consolidation.
+                                     Additionally, periods of sustained high volume can reinforce the validity of the current price trend, whereas sudden spikes in volume may signal a potential reversal or market reaction to new information</p>
+                            <iframe src="/web/barchart.html" class="w-full h-64"></iframe>
+                        </div>
+                    </div>
+                    <!-- Straw Modal -->
+                     <div id="strawModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center p-4">
+                        <div class="bg-white rounded-lg shadow-lg p-4 max-w-4xl w-full">
+                            <h3 class="text-xl font-semibold mb-2">StrawBroom Market Analysis</h3>
+                            <p class="mb-4">w trading volumes and average prices interact. This analysis helps investors understand how volume-weighted average price(VWAP) compares with the simple moving average(SMA),offering valuable clues about underlying market momentum and potential trend shifts, uncovering key insights into market behaviour.
+        
+                                VWMA: Reflects price trends influenced by trading volumes, highlighting the impact of transaction activity on price movements.
+                                
+                                SMA: Provides a consistent average, smoothing out price fluctuations to reveal overall market direction.
+                                
+                                
+                                
+                                Adjust the time frame with the range selector to examine periods of interest.
+                                
+                                
+                                
+                                Adjust the time frame with the range selector to examine periods of interest.</p>
+                            <iframe src="/web/straw.html" class="w-full h-64"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+    </main>
+
+    <script src="/web/source.js"></script>
 </body>
 </html>

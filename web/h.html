@@ -1,0 +1,39 @@
+<!-- ARIMA Widget -->
+<div id="arimaWidget" class="bg-white shadow-md rounded-lg overflow-hidden my-4 hidden">
+    <iframe src="/web/arima.html" id="arimaFrame" class="w-full h-64"></iframe>
+    <div class="p-4">
+        <h2 class="font-bold text-xl mb-2">ARIMA Widget</h2>
+        <p>This widget displays ARIMA analysis results.</p>
+    </div>
+</div>
+
+<!-- Plot Widget -->
+<div id="plotWidget" class="bg-white shadow-md rounded-lg overflow-hidden my-4 hidden">
+    <iframe src="/web/plot.html" id="plotFrame" class="w-full h-64"></iframe>
+    <div class="p-4">
+        <h2 class="font-bold text-xl mb-2">Plot Widget</h2>
+        <p>This widget displays plot analysis results.</p>
+    </div>
+</div>
+
+<!-- Bar Chart Widget -->
+<div id="barchartWidget" class="bg-white shadow-md rounded-lg overflow-hidden my-4 hidden">
+    <iframe src="/web/barchart.html" id="barchartFrame" class="w-full h-64"></iframe>
+    <div class="p-4">
+        <h2 class="font-bold text-xl mb-2">Bar Chart Widget</h2>
+        <p>This widget displays bar chart analysis results.</p>
+    </div>
+</div>
+
+<!-- Straw Widget -->
+<div id="strawWidget" class="bg-white shadow-md rounded-lg overflow-hidden my-4 hidden">
+    <iframe src="/web/straw.html" id="strawFrame" class="w-full h-64"></iframe>
+    <div class="p-4">
+        <h2 class="font-bold text-xl mb-2">Straw Widget</h2>
+        <p>This widget displays straw analysis results.</p>
+    </div>
+</div>
+
+{% for commodity in commodities % }
+  <option value="{{ commodity[1] }}">{{ commodity[0] }}</option>
+{% endfor %}
