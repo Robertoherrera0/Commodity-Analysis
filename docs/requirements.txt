@@ -1,3 +1,0 @@
-Flask
-certifi
-pandas

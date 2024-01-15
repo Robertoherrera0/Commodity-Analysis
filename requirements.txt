@@ -1,0 +1,4 @@
+pandas
+Flask
+urllib3
+certifi

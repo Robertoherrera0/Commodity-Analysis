@@ -1,34 +1,66 @@
-# Exclude compiled Python files
-*.pyc
-*.pyo
-*.pyd
-__pycache__
-.pytest_cache
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
 
-# Exclude virtual environment directories
+# Caches and logs
+*.log
+.pytest_cache/
+
+# Virtual environment
 .env
 .venv
-env/
 venv/
 ENV/
+env/
 
-# Exclude data files that should not be included in the Docker image
-data.csv
+# Spyder project settings
+.spyderproject
+.spyproject
 
-# Exclude files and directories related to version control
-.git
-.gitignore
+# Jupyter Notebook
+.ipynb_checkpoints
 
-# Exclude cache files for R
+# Environment variables
+.env.local
+.env.*.local
+
+# Flask instance folder
+instance/
+
+# macOS directory attributes
+.DS_Store
+
+# Windows thumbnail cache
+Thumbs.db
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# pytest
+.cache
+
+# mypy
+.mypy_cache/
+
+# R specific
 .Rhistory
 .RData
 .Ruserdata
-
-# Exclude IDE specific files
-.vscode
-.idea
-
-# Other files and folders that should not be included in the Docker build context
-*.rds
 *.Rproj
-.DS_Store
+*.rds
+
+# Data files
+data.csv
+
+# Version control
+.git/
+.gitignore
+
+# Editors and IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
